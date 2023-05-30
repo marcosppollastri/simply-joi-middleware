@@ -1,0 +1,9 @@
+node_modules
+dist
+jest.config.js
+coverage
+__snapshots__
+build
+
+# Files copied as part of the build
+packages/types/src/generated/**/*.ts
