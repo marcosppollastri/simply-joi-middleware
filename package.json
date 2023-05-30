@@ -1,6 +1,6 @@
 {
   "name": "simply-joi-middleware",
-  "version": "0.1.0",
+  "version": "0.1.0-beta.0",
   "description": "A simple middleware library for using Joi schemas validations on express",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,7 +21,15 @@
     "prepare": "npm run build",
     "prepack": "npm run build"
   },
-  "keywords": ["joi", "express", "middleware", "validation", "typescript", "simply", "simple"],
+  "keywords": [
+    "joi",
+    "express",
+    "middleware",
+    "validation",
+    "typescript",
+    "simply",
+    "simple"
+  ],
   "author": "Marcos J. Peña Pollastri (@marcosppollastri)",
   "license": "ISC",
   "dependencies": {
