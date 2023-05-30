@@ -2,7 +2,7 @@ import { NextFunction, Request, Response, RequestHandler } from 'express';
 import { Schema, ValidationOptions, assert, isError as isJoiError } from 'joi';
 import { HttpError } from '@supercharge/http-errors/dist';
 
-export enum ValidationTargets {
+export enum Targets {
     BODY = 'body',
     QUERY = 'query',
     HEADERS = 'headers',
@@ -15,7 +15,7 @@ export enum HttpCodes {
 
 
 
-export function validateRequest(schema: Schema, target: ValidationTargets, options?: ValidationOptions): RequestHandler {
+export function validate(schema: Schema, target: Targets, options?: ValidationOptions): RequestHandler {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     return (req: Request, res: Response, next: NextFunction) => {
         const data: unknown = req[target];

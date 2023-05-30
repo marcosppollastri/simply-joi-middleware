@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as request from 'supertest';
 import * as Joi from 'joi';
-import { HttpCodes, validateRequest, ValidationTargets } from '@src/middlewares/validateRequest';
+import { HttpCodes, validate, Targets } from '@src/validate';
 
 const app = express();
 app.use(express.json());
@@ -11,7 +11,7 @@ const schema = Joi.object({
     email: Joi.string().email().required(),
 });
 
-app.post('/test', validateRequest(schema, ValidationTargets.BODY), (req, res) => {
+app.post('/test', validate(schema, Targets.BODY), (req, res) => {
     res.json({ message: 'Success' });
 });
 

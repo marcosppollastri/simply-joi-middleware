@@ -1,8 +1,8 @@
-import { validateRequest, ValidationTargets } from '@src/middlewares/validateRequest'; 
+import { validate, Targets } from '@src/validate'; 
 import { Request, Response, NextFunction } from 'express';
 import * as Joi from 'joi';
 
-describe('validateRequest', () => {
+describe('validate', () => {
     let mockRequest: Partial<Request>;
     let mockResponse: Partial<Response>;
     let nextFunction: NextFunction;
@@ -28,7 +28,7 @@ describe('validateRequest', () => {
 
         mockRequest.body = { foo: 'bar' };
 
-        validateRequest(schema, ValidationTargets.BODY)(mockRequest as Request, mockResponse as Response, nextFunction);
+        validate(schema, Targets.BODY)(mockRequest as Request, mockResponse as Response, nextFunction);
 
         expect(nextFunction).toHaveBeenCalled();
     });
@@ -40,7 +40,7 @@ describe('validateRequest', () => {
 
         mockRequest.body = { baz: 'qux' };
 
-        validateRequest(schema, ValidationTargets.BODY)(mockRequest as Request, mockResponse as Response, nextFunction);
+        validate(schema, Targets.BODY)(mockRequest as Request, mockResponse as Response, nextFunction);
 
         expect(mockResponse.status).toHaveBeenCalledWith(400);
         expect(mockResponse.json).toHaveBeenCalled();
@@ -57,7 +57,7 @@ describe('validateRequest', () => {
         // This will cause an error because the schema is a string and not an object.
         mockRequest.body = 'not an object';
 
-        validateRequest(schema, ValidationTargets.BODY)(mockRequest as Request, mockResponse as Response, nextFunction);
+        validate(schema, Targets.BODY)(mockRequest as Request, mockResponse as Response, nextFunction);
 
         expect(mockResponse.status).toHaveBeenCalledWith(500);
         expect(mockResponse.json).toHaveBeenCalled();

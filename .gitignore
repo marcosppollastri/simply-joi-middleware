@@ -35,3 +35,6 @@ yarn-error.log
 
 # API keys and secrets
 .env
+
+#pack file
+simply-*.tgz
