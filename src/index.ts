@@ -1,2 +1,2 @@
-export { validate, Targets } from './validate';
-
+export { validate } from './validate';
+export { Targets, SimplyJoiOptions } from './interfaces';
