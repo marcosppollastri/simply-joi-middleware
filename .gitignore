@@ -38,3 +38,5 @@ yarn-error.log
 
 #pack file
 simply-*.tgz
+
+.tsbuildinfo
