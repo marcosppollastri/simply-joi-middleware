@@ -44,6 +44,31 @@ In this example, incoming GET requests to the root (/) will have their query par
 
 This process can be repeated for all the routes you wish to validate, adjusting the schema and target as needed.
 
+### `nextOnError` option
+The nextOnError option is a new feature in the simply-joi-middleware package. This is an optional setting that allows developers to customize how the middleware behaves when validation fails.
+
+By default, if a validation error occurs, `simply-joi-middleware` will terminate the request-response cycle by sending an HTTP error 400 Bad Request and will not call the `next()` function.
+
+However, with the `nextOnError` option, you can override this behavior. When `nextOnError` is set to true, the middleware will call the `next(err)` function and pass control to the next middleware in the stack if the validation fails.
+
+Here's a code example that shows how to use this option:
+
+```ts
+const AppRouter: Router = Router();
+const schema = Joi.object({
+    name: Joi.string().required()
+});
+
+const validationMiddleware = validate(schema, Targets.QUERY, undefined, {nextOnError: true});
+
+AppRouter.get('/', validationMiddleware, AppController);
+```
+
+In this example, if the `name` query parameter is not provided or invalid, the `validationMiddleware` will call `next(err)`. This allows you to handle the error in subsequent middleware or error handlers as per your application's error handling strategy.
+
+This provides more control over how validation errors are handled in your application and can be particularly useful when you want to include additional logging, error transformations or other custom error handling logic after a validation failure.
+
+
 
 ## Contributing
 
