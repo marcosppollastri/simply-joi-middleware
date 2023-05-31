@@ -2,6 +2,7 @@
   "compilerOptions": {
     "resolveJsonModule": true,
     "module": "commonjs",
+    "tsBuildInfoFile": "logs/.tsbuildinfo",
     "declaration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
