@@ -1,6 +1,6 @@
 {
   "name": "simply-joi-middleware",
-  "version": "0.2.0",
+  "version": "0.2.1-beta.0",
   "description": "A simple middleware library for using Joi schemas validations on express",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
