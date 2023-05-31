@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response, RequestHandler } from 'express';
 import { Schema, ValidationOptions, assert, isError as isJoiError } from 'joi';
-import { HttpError } from '@supercharge/http-errors/dist';
 import { SimplyJoiOptions, Targets } from './interfaces';
+import { handleError } from './helpers/handleError';
 
 
 /**
@@ -30,25 +30,8 @@ export function validate(schema: Schema, target: Targets, joiOptions?: Validatio
             assert(data, schema, joiOptions);
             next();
         } catch (error: unknown) {
-            let err: HttpError;
-            if(isJoiError(error)){
-                err = new HttpError(error.message)
-                    .withCode('BAD_REQUEST')
-                    .withStatus(400);
-            } else {
-                err = new HttpError('Internal server error')
-                    .withCode('INTERNAL_SERVER_ERROR')
-                    .withStatus(500);
-            }
-            if(options?.nextOnError){
-                next(err);
-            } else {
-                res.status(err.status).json({
-                    code: err.code,
-                    status: err.status,
-                    message: err.message,
-                });
-            }
+            handleError(error, options, res, next);
         }
     };
 }
+
