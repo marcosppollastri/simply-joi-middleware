@@ -22,15 +22,18 @@ describe('validate', () => {
         jest.clearAllMocks();
     });
 
-    it('calls next when validation succeeds', () => {
+    it('should calls next when validation succeeds', () => {
+        //seteo de mocks y preparacion
         const schema = Joi.object({
             foo: Joi.string().required(),
         });
 
         mockRequest.body = { foo: 'bar' };
 
+        //ejecutar la funcion a testear
         validate(schema, Targets.BODY)(mockRequest as Request, mockResponse as Response, nextFunction);
 
+        //validar asserts
         expect(nextFunction).toHaveBeenCalled();
     });
 
@@ -45,6 +48,8 @@ describe('validate', () => {
 
         expect(mockResponse.status).toHaveBeenCalledWith(400);
         expect(mockResponse.json).toHaveBeenCalled();
+        expect(nextFunction).not.toHaveBeenCalled();
+
     });
 
     it('returns a 500 error when an unexpected error occurs', () => {
@@ -55,7 +60,7 @@ describe('validate', () => {
             throw new Error('test error');
         });
 
-        // This will cause an error because the schema is a string and not an object.
+        // This will cause an 400 error because the schema is a string and not an object.
         mockRequest.body = 'not an object';
 
         validate(schema, Targets.BODY)(mockRequest as Request, mockResponse as Response, nextFunction);
